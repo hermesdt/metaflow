@@ -7,6 +7,7 @@ using local / remote processes
 from __future__ import print_function
 import os
 import sys
+import json
 import fcntl
 import time
 import subprocess
@@ -941,6 +942,8 @@ class CLIArgs(object):
                 v = v if isinstance(v, (list, tuple, set)) else [v]
                 for value in v:
                     yield "--%s" % k
+                    if isinstance(value, dict):
+                        yield json.dumps(value)
                     if not isinstance(value, bool):
                         yield to_unicode(value)
 
